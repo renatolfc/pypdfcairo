@@ -97,3 +97,10 @@ class Handle(object):
         self.props = ffi.new("RsvgDimensionData *")
         lib.rsvg_handle_get_dimensions(self.handle, self.props)
 
+    def render_cairo(self, context):
+        try:
+            return bool(LIBRSVG.rsvg_handle_render_cairo(self.handle,
+                                                         context._pointer))
+        except AttributeError:
+            ctx = PycairoContext.from_address(id(context))
+            return bool(LIBRSVG.rsvg_handle_render_cairo(self.handle, ctx.ctx))
