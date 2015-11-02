@@ -88,6 +88,10 @@ class Handle(object):
     and render opened files to Cairo contexts.
     """
     def __init__(self, file):
+        """Initializes a new instance.
+
+        :param file: Path to an SVG file to be opened for processing.
+        """
         lib = LIBRSVG
         errorp = ffi.new("GError **");
         self.handle = lib.rsvg_handle_new_from_file(file, errorp)
@@ -98,6 +102,13 @@ class Handle(object):
         lib.rsvg_handle_get_dimensions(self.handle, self.props)
 
     def render_cairo(self, context):
+        """Renders this handle to a cairo context.
+
+        Returns True when the document is rendered successfully, and False
+        otherwise.
+
+        :param context: The context to render on.
+        """
         try:
             return bool(LIBRSVG.rsvg_handle_render_cairo(self.handle,
                                                          context._pointer))
