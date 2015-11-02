@@ -75,6 +75,11 @@ class RsvgException(Exception):
     pass
 
 class Handle(object):
+    """File handle to manipulate SVG files.
+
+    This class is extremely limited, in a sense that it can only open SVG files
+    and render opened files to Cairo contexts.
+    """
     def __init__(self, file):
         lib = LIBRSVG
         errorp = ffi.new("GError **");
