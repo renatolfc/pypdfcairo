@@ -75,10 +75,10 @@ class RsvgException(Exception):
     pass
 
 class Handle(object):
-    def __init__(self, path):
+    def __init__(self, file):
         lib = LIBRSVG
         errorp = ffi.new("GError **");
-        self.handle = lib.rsvg_handle_new_from_file(path, errorp)
+        self.handle = lib.rsvg_handle_new_from_file(file, errorp)
         if self.handle is None:
             error = ffi.string(errorp[0][0].message)
             raise RsvgException(error)
