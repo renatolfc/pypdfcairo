@@ -20,7 +20,7 @@
 """
 
 from cffi import FFI
-from ctypes import util
+from ctypes import util, Structure, c_byte, c_void_p
 
 LIBRSVG = None
 
@@ -50,6 +50,13 @@ ffi.cdef("""
     gboolean rsvg_handle_render_cairo(RsvgHandle *, cairo_t *);
     void g_type_init();
 """)
+
+class PycairoContext(Structure):
+    _fields_ = (
+        ('PyObject_HEAD', c_byte * object.__basicsize__),
+        ('ctx', c_void_p),
+        ('base', c_void_p)
+    )
 
 def _load_rsvg(rsvg_lib_path=None, gobject_lib_path=None):
     """Loads the wrapped libraries.
