@@ -11,7 +11,7 @@
 #
 
 """
-.. module:: rsvg
+.. module:: rsvgcffi
     :platform: Unix, Windows
     :synopsis: Utility module for pypdfcairo.
 
